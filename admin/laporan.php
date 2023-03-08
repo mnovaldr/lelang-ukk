@@ -40,28 +40,6 @@ include '../layout/navbar_admin.php';
               </div>
             </div>
             <div class="card-body">
-              <?php
-              if (isset($_GET['info'])) {
-                if ($_GET['info'] == "hapus") { ?>
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-trash"></i> Sukses</h5>
-                    Data berhasil di hapus
-                  </div>
-                <?php } else if ($_GET['info'] == "simpan") { ?>
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-check"></i> Sukses</h5>
-                    Data berhasil di simpan
-                  </div>
-                <?php } else if ($_GET['info'] == "update") { ?>
-                  <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-edit"></i> Sukses</h5>
-                    Data berhasil di update
-                  </div>
-              <?php }
-              } ?>
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -79,9 +57,9 @@ include '../layout/navbar_admin.php';
                   include "../koneksi.php";
                   $tb_lelang    = mysqli_query($koneksi, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas ");
                   while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
-                    $harga_tertinggi = mysqli_query($koneksi, "select max(penawaran_barang) as penawaran_barang FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
+                    $harga_tertinggi = mysqli_query($koneksi, "select max(harga_akhir) as harga_akhir FROM tb_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
                     $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
-                    $d_harga_tertinggi = $harga_tertinggi['penawaran_barang'];
+                    $d_harga_tertinggi = $harga_tertinggi['harga_akhir'];
                     // $pemenang = mysqli_query($koneksi, "SELECT * FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
                     // $d_pemenang = mysqli_fetch_array($pemenang);
                     $tb_masyarakat = mysqli_query($koneksi, "SELECT * FROM tb_masyarakat where id_user='$d_tb_lelang[id_user]'");
@@ -90,6 +68,7 @@ include '../layout/navbar_admin.php';
                     <?php
                     if ($d_tb_lelang['status'] == 'dibuka') { ?>
                     <?php } elseif ($d_tb_lelang['status'] == '') { ?>
+                    <?php } else if ($d_tb_lelang['status'] == 'ditutup' && $d_tb_lelang['id_user'] == '0' && $d_tb_lelang['harga_akhir'] == '0') { ?>
                     <?php } else { ?>
                       <tr>
                         <td><?php echo $no++; ?></td>
@@ -108,6 +87,7 @@ include '../layout/navbar_admin.php';
                         </td>
                       </tr>
                     <?php } ?>
+
                   <?php } ?>
                 </tbody>
               </table>

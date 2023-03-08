@@ -52,6 +52,7 @@ include '../layout/header.php';
                                     <?php
                                     if ($d_tb_lelang['status'] == 'dibuka') { ?>
                                     <?php } elseif ($d_tb_lelang['status'] == '') { ?>
+                                        <?php } else if ($d_tb_lelang['status'] == 'ditutup' && $d_tb_lelang['id_user'] == '0' && $d_tb_lelang['harga_akhir'] == '0') { ?>
                                     <?php } else { ?>
                                         <tr>
                                             <td><?php echo $no++; ?></td>

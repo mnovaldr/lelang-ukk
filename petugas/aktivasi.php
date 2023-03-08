@@ -96,11 +96,13 @@ include '../layout/navbar_admin.php';
                                                     -
                                                 <?php } else if ($data_lelang['status'] == 'dibuka') { ?>
                                                     <div class="btn btn-info btn-sm">Lelang Sedang Berjalan</div>
+
                                                 <?php } else if ($data_lelang['status'] == 'ditutup' && $data_lelang['id_user'] == '0' && $data_lelang['harga_akhir'] == '0') { ?>
                                                     <div class="btn btn-warning btn-sm">Lelang Ditutup Sementara</div>
                                                 <?php } else { ?>
                                                     <?= $d_tb_masyarakat['nama_lengkap'] ?>
                                                 <?php } ?>
+                                                
                                                 <!-- <?php if ($data_lelang['status'] == 'dibuka') { ?>
                                                     -
                                                 <?php } else { ?>
@@ -115,7 +117,7 @@ include '../layout/navbar_admin.php';
                                                 <?php } else if ($data_lelang['status'] == 'ditutup' && $data_lelang['id_user'] == '0' && $data_lelang['harga_akhir'] == '0') { ?>
                                                     <div class="btn btn-warning btn-sm">Lelang Ditutup Sementara</div>
                                                 <?php } else { ?>
-                                                    Rp. <?= number_format($d_harga_tertinggi) ?>
+                                                    Rp. <?= number_format($data_lelang['harga_akhir']) ?>
                                                 <?php } ?>
                                                 <!-- <?php if ($data_lelang['status'] == 'dibuka') { ?>
                                                     -

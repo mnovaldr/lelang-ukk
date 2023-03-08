@@ -46,7 +46,7 @@
                                 <td><?php echo $no++; ?></td>
                                 <td><?= $d_tb_lelang['nama_barang'] ?></td>
                                 <td><?= $d_tb_masyarakat['nama_lengkap'] ?></td>
-                                <td>Rp. <?= number_format($d_harga_tertinggi) ?></td>
+                                <td>Rp. <?= number_format($d_tb_lelang['penawaran_barang']) ?></td>
                             <?php } else { ?>
                             <?php } ?>
                         </tr>

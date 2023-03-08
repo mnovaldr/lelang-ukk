@@ -102,7 +102,7 @@ include '../layout/navbar_admin.php';
                                                 <?php } else { ?>
                                                     <?= $d_tb_masyarakat['nama_lengkap'] ?>
                                                 <?php } ?>
-                                                
+
                                                 <!-- <?php if ($data_lelang['status'] == 'dibuka') { ?>
                                                     -
                                                 <?php } else { ?>
@@ -157,7 +157,7 @@ include '../layout/navbar_admin.php';
                                                             <div class="form-group">
                                                                 <input type="text" class="form-control" value="dibuka" name="status" hidden="">
                                                                 <input type="text" class="form-control" value="" name="id_user" hidden="">
-                                                                <input type="text" class="form-control" value="" name="harga_akhir" hidden="">
+                                                                <input type="text" class="form-control" value="<?php echo $data_lelang['harga_awal']; ?>" name="harga_akhir" hidden="">
                                                                 <input type="text" class="form-control" value="<?php echo $data_lelang['id_lelang']; ?>" name="id_lelang" hidden="">
                                                             </div>
                                                         </div>

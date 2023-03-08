@@ -85,8 +85,8 @@ include '../layout/navbar_masyarakat.php';
                               <div class="form-group">
                                 <label>Nominal Tawaran</label>
                                 <input type="text" name="id_user" value="<?php echo $d_tb_masyarakat['id_user']; ?>" hidden>
-                                <input type="number" class="form-control" name="penawaran_barang" placeholder="Silahkan Masukan Tawaran Anda ...">
-                                <span class="text-italic">Nominal tidak boleh kurang dari <?= $tb_lelang['harga_akhir']; ?></span>
+                                <input type="number" class="form-control" name="penawaran_barang" min="<?= $tb_lelang['harga_akhir'] ?>" required placeholder="Silahkan Masukan Tawaran Anda ...">
+                                <span class="text-italic">Nominal tidak boleh kurang dari Rp. <?= number_format($tb_lelang['harga_akhir']); ?></span>
                               </div>
                             <?php } ?>
                           </div>
@@ -101,9 +101,11 @@ include '../layout/navbar_masyarakat.php';
                 </div>
               </div>
             </div>
+
           <?php } else { ?>
 
-        <?php } } ?>
+        <?php }
+        } ?>
         <!-- /.col-md-6 -->
         <div class="col-lg-12">
           <div class="card">
@@ -129,7 +131,7 @@ include '../layout/navbar_masyarakat.php';
                   $history_lelang    = mysqli_query($koneksi, "SELECT * FROM history_lelang INNER JOIN tb_barang ON history_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_masyarakat ON history_lelang.id_user=tb_masyarakat.id_user INNER JOIN tb_lelang ON history_lelang.id_lelang=tb_lelang.id_lelang");
                   while ($d_history_lelang = mysqli_fetch_array($history_lelang)) {
                   ?>
-                    <?php if ($d_history_lelang['username'] == $_SESSION['username'] ) { ?>
+                    <?php if ($d_history_lelang['username'] == $_SESSION['username']) { ?>
                       <tr>
                         <td><?php echo $no++; ?></td>
                         <td><?= $d_history_lelang['nama_barang'] ?></td>
@@ -192,24 +194,24 @@ include '../layout/navbar_masyarakat.php';
                               </button>
                             </div>
                             <form method="post" action="update_penawaran.php">
-                            <div class="modal-body">
-                            <div class="form-group">
-                              <input type="text" name="id_lelang" value="<?php echo $d_history_lelang['id_lelang']; ?>" hidden>
-                              <input type="text" name="id_barang" value="<?php echo $d_history_lelang['id_barang']; ?>" hidden>
-                            </div>
-                            <?php
-                            include "../koneksi.php";
-                            $tb_masyarakat    = mysqli_query($koneksi, "SELECT * FROM tb_masyarakat where username='$_SESSION[username]'");
-                            while ($d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat)) {
-                            ?>
-                              <div class="form-group">
-                                <label>Nominal Tawaran</label>
-                                <input type="text" name="id_user" value="<?php echo $d_tb_masyarakat['id_user']; ?>" hidden>
-                                <input type="number" class="form-control" value="<?= $d_history_lelang['penawaran_barang']; ?>" name="penawaran_barang" placeholder="Silahkan Masukan Tawaran Anda ...">
-                                <span class="text-italic">Nominal tidak boleh kurang dari <?= $d_history_lelang['harga_akhir']; ?></span>
+                              <div class="modal-body">
+                                <div class="form-group">
+                                  <input type="text" name="id_lelang" value="<?php echo $d_history_lelang['id_lelang']; ?>" hidden>
+                                  <input type="text" name="id_barang" value="<?php echo $d_history_lelang['id_barang']; ?>" hidden>
+                                </div>
+                                <?php
+                                include "../koneksi.php";
+                                $tb_masyarakat    = mysqli_query($koneksi, "SELECT * FROM tb_masyarakat where username='$_SESSION[username]'");
+                                while ($d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat)) {
+                                ?>
+                                  <div class="form-group">
+                                    <label>Nominal Tawaran</label>
+                                    <input type="text" name="id_user" value="<?php echo $d_tb_masyarakat['id_user']; ?>" hidden>
+                                    <input type="number" class="form-control" value="<?= $d_history_lelang['penawaran_barang']; ?>" min="<?= $d_history_lelang['harga_akhir'] ?>" required name="penawaran_barang" placeholder="Silahkan Masukan Tawaran Anda ...">
+                                    <span class="text-italic">Nominal tidak boleh kurang dari <?= $d_history_lelang['harga_akhir']; ?></span>
+                                  </div>
+                                <?php } ?>
                               </div>
-                            <?php } ?>
-                          </div>
                               <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>

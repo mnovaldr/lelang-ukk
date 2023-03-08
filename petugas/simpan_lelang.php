@@ -6,9 +6,12 @@ include '../koneksi.php';
 $id_barang = $_POST['id_barang'];
 $tgl_lelang = date('Y-m-d');
 $id_petugas = $_POST['id_petugas'];
+$harga_akhir = $_POST['harga_akhir'];
 
 // menginput data ke database
-mysqli_query($koneksi,"INSERT INTO tb_lelang VALUES('','$id_barang','$tgl_lelang','','','$id_petugas','')");
+// mysqli_query($koneksi,"INSERT INTO tb_lelang VALUES('','$id_barang','$tgl_lelang','','','$id_petugas','')");
+
+$sql = "INSERT INTO tb_lelang VALUES('','$id_barang','$tgl_lelang','$harga_akhir','','$id_petugas','')";
 
 // mengalihkan halaman kembali ke index.php
 header("location:aktivasi.php?info=simpan");

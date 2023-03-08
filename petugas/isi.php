@@ -29,7 +29,7 @@
                     include "../koneksi.php";
                     $tb_lelang    = mysqli_query($koneksi, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas INNER JOIN history_lelang ON tb_lelang.id_lelang=history_lelang.id_lelang");
                     while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
-                        $harga_tertinggi = mysqli_query($koneksi, "select * FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
+                        $harga_tertinggi = mysqli_query($koneksi, "select max(penawaran_barang) as penawaran_barang FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
                         $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
                         $d_harga_tertinggi = $harga_tertinggi['penawaran_barang'];
                         // $pemenang = mysqli_query($koneksi, "SELECT * FROM history_lelang where penawaran_barang='$harga_tertinggi[penawaran_barang]'");
